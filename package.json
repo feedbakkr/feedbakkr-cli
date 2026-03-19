@@ -1,0 +1,49 @@
+{
+	"name": "@feedbakkr/cli",
+	"version": "0.1.0",
+	"description": "CLI tools for Feedbakkr — pull schemas and generate TypeScript types",
+	"license": "MIT",
+	"type": "module",
+	"bin": {
+		"feedbakkr": "./dist/index.js"
+	},
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"files": ["dist", "README.md", "LICENSE"],
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"test": "vitest run",
+		"typecheck": "tsc --noEmit",
+		"clean": "rm -rf dist",
+		"prepublishOnly": "npm run build"
+	},
+	"keywords": [
+		"feedbakkr",
+		"feedback",
+		"cli",
+		"codegen",
+		"typescript"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/feedbakkr/feedbakkr-cli"
+	},
+	"homepage": "https://github.com/feedbakkr/feedbakkr-cli#readme",
+	"bugs": {
+		"url": "https://github.com/feedbakkr/feedbakkr-cli/issues"
+	},
+	"dependencies": {
+		"commander": "^13.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^22.0.0",
+		"tsup": "^8.0.0",
+		"typescript": "~5.8.0",
+		"vitest": "^3.0.0"
+	}
+}
