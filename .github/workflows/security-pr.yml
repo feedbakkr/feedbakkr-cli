@@ -1,0 +1,32 @@
+name: Security PR Check
+
+on:
+  pull_request:
+    branches: [main]
+
+# Minimal permissions — this workflow only reads the repo and reports back via
+# the standard checks API.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
+
+      # Blocking on high+ severity. The initial rollout had 0 unmitigated highs
+      # (cleared via `npm audit fix` before this workflow landed), so blocking
+      # from day one is safe.
+      - name: Audit dependencies (high+)
+        run: npm audit --audit-level=high
