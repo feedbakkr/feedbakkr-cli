@@ -1,6 +1,6 @@
 {
 	"name": "@feedbakkr/cli",
-	"version": "0.1.0",
+	"version": "0.2.1",
 	"description": "CLI tools for Feedbakkr — pull schemas and generate TypeScript types",
 	"license": "MIT",
 	"type": "module",
